@@ -1,35 +1,40 @@
+import { NavLink } from "react-router-dom"
 import styled from "styled-components"
 
 const StyledMenu = styled.div`
     position: fixed;
-    top: 65px;
+    top: 57px;
     left: 0;
-    width: 50%;
+    width: 55%;
     height: 100vh;
     background: #fff;
+    border-right: 1px solid lightgray;
     z-index: 2;
     transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
     visibility: ${({ open }) => (open ? "visible" : "hidden")};
     transition: 0.5s ease;
-    transition-delay: .2s;
-    ul {
+    transition-delay: 0.2s;
+    div {
         padding: 2rem 20px;
-        li {
-            margin-bottom: .5rem;
+        display: flex;
+        flex-direction: column;
+        a {
+            margin-bottom: 0.5rem;
             text-transform: capitalize;
         }
     }
 `
 
-const Menu = ({ open }) => {
-    const links = ["home", "about us", "contact us", "services"]
+const Menu = ({ open, close, links }) => {
     return (
         <StyledMenu open={open}>
-            <ul>
+            <div>
                 {links.map((link) => (
-                    <li key={link}>{link}</li>
+                    <NavLink onClick={close} to={link.to} key={link.name}>
+                        {link.name}
+                    </NavLink>
                 ))}
-            </ul>
+            </div>
         </StyledMenu>
     )
 }

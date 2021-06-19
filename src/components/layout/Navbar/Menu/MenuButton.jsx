@@ -23,11 +23,15 @@ let useClickOutside = (handler) => {
     return menuRef
 }
 
-const MenuButton = () => {
+const MenuButton = ({ links }) => {
     const [open, setOpen] = useState(false)
     const handleClick = () => {
         setOpen(!open)
         document.getElementById("burger").classList.toggle("is-active")
+    }
+    const handleClose = () => {
+        setOpen(false)
+        document.getElementById("burger").classList.remove("is-active")
     }
 
     let menuRef = useClickOutside(() => {
@@ -50,7 +54,7 @@ const MenuButton = () => {
                         <span class="hamburger-inner"></span>
                     </span>
                 </button>
-                <Menu open={open} />
+                <Menu open={open} close={handleClose} links={links} />
             </div>
             <Overlay open={open} />
         </div>
