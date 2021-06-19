@@ -3,12 +3,11 @@ import styled from "styled-components"
 
 const StyledMenu = styled.div`
     position: fixed;
-    top: 57px;
+    top: 56px;
     left: 0;
     width: 55%;
     height: 100vh;
     background: #fff;
-    border-right: 1px solid lightgray;
     z-index: 2;
     transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
     visibility: ${({ open }) => (open ? "visible" : "hidden")};

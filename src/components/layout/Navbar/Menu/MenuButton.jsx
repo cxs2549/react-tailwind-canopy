@@ -28,10 +28,14 @@ const MenuButton = ({ links }) => {
     const handleClick = () => {
         setOpen(!open)
         document.getElementById("burger").classList.toggle("is-active")
+        document.body.classList.toggle("modal-open")
+
     }
     const handleClose = () => {
         setOpen(false)
         document.getElementById("burger").classList.remove("is-active")
+        document.body.classList.remove("modal-open")
+        
     }
 
     let menuRef = useClickOutside(() => {

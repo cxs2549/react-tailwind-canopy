@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
+import { CSSTransition } from "react-transition-group"
 import styled from "styled-components"
 import MenuButton from "./Menu/MenuButton"
 
@@ -29,7 +30,6 @@ const StyledNav = styled.header`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid lightgray;
         position: relative;
         @media screen and (min-width: 768px) {
             padding: 1rem 24px;
@@ -68,12 +68,19 @@ const StyledNav = styled.header`
             @media screen and (min-width: 768px) {
                 gap: 1.2rem;
             }
-            .drop1-enter {
+            .drop-transition-enter {
                 opacity: 0;
             }
-            .drop1-enter-active {
+            .drop-transition-enter-active {
                 opacity: 1;
-                transition: opacity 500ms ease;
+                transition: opacity 200ms ease;
+            }
+            .drop-transition-exit {
+                opacity: 1;
+            }
+            .drop-transition-exit-active {
+                opacity: 0;
+                transition: opacity 200ms ease;
             }
         }
     }
@@ -132,7 +139,7 @@ const Navbar = () => {
                         <input
                             type="search"
                             placeholder="Search or jump to..."
-                            className="border rounded px-3 "
+                            className="border rounded px-3 focus:outline-none"
                             style={{ height: "28px", width: "260px" }}
                         />
                         <div className="absolute right-3 opacity-70 text-gray-800">
@@ -167,9 +174,15 @@ const Navbar = () => {
                         >
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            {dropDown1 && (
+
+                            <CSSTransition
+                                in={dropDown1}
+                                timeout={200}
+                                classNames="drop-transition"
+                                unmountOnExit={true}
+                            >
                                 <div
-                                    className="absolute flex flex-col bg-gray-100 text-sm capitalize space-y-2 right-0 top-0 mt-8 whitespace-nowrap px-3 py-3 rounded shadow-lg"
+                                    className="absolute flex flex-col bg-white border text-sm capitalize space-y-2 right-0 top-0 mt-8 whitespace-nowrap px-3 py-2 rounded shadow-lg"
                                     style={{ width: "168px" }}
                                 >
                                     {drop1.map((link) => (
@@ -182,7 +195,7 @@ const Navbar = () => {
                                         </Link>
                                     ))}
                                 </div>
-                            )}
+                            </CSSTransition>
                         </div>
                     </div>
 
@@ -191,11 +204,19 @@ const Navbar = () => {
                             onClick={handleDrop2}
                             className="hidden md:flex items-center space-x-1 relative"
                         >
-                            <div className="rounded-full bg-green-500 h-5 w-5"></div>
+                            <div>
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </div>
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            {dropDown2 && (
+
+                            <CSSTransition
+                                in={dropDown2}
+                                timeout={200}
+                                classNames="drop-transition"
+                                unmountOnExit
+                            >
                                 <div
-                                    className="absolute flex flex-col bg-gray-100 text-sm capitalize space-y-2 right-0 top-0 mt-8 whitespace-nowrap px-3 py-3 rounded shadow-lg"
+                                    className="absolute flex flex-col bg-white border text-sm capitalize space-y-2 right-0 top-0 mt-8 whitespace-nowrap px-3 py-2 rounded shadow-lg"
                                     style={{ width: "168px" }}
                                 >
                                     {drop2.map((link) => (
@@ -208,7 +229,7 @@ const Navbar = () => {
                                         </Link>
                                     ))}
                                 </div>
-                            )}
+                            </CSSTransition>
                         </div>
                     </div>
                 </div>

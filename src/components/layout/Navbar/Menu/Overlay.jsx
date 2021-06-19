@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 const StyledOverlay = styled.div`
     position: fixed;
-    top: 57px;
+    top: 56px;
     left: 0;
     width: 100%;
     height: 100vh;
